@@ -71,6 +71,7 @@ namespace MinecraftClient.Protocol.Handlers
         internal const int MC_1_20_Version = 763;
         internal const int MC_1_20_2_Version = 764;
         internal const int MC_1_20_4_Version = 765;
+	internal const int MC_1_21_4_Version = 769;
 
         private int compression_treshold = -1;
         private int autocomplete_transaction_id = 0;
@@ -147,7 +148,8 @@ namespace MinecraftClient.Protocol.Handlers
                 // Block palette
                 > MC_1_20_4_Version when handler.GetTerrainEnabled() =>
                     throw new NotImplementedException(Translations.exception_palette_block),
-                >= MC_1_20_4_Version => new Palette1204(),
+                >= MC_1_21_4_Version => new Palette1204(),
+		>= MC_1_20_4_Version => new Palette1204(),
                 >= MC_1_20_Version => new Palette120(),
                 MC_1_19_4_Version => new Palette1194(),
                 MC_1_19_3_Version => new Palette1193(),
@@ -165,6 +167,7 @@ namespace MinecraftClient.Protocol.Handlers
                 // Entity palette
                 > MC_1_20_4_Version when handler.GetEntityHandlingEnabled() =>
                     throw new NotImplementedException(Translations.exception_palette_entity),
+		    >= MC_1_21_4_Version => new EntityPalette1204(),
                 >= MC_1_20_4_Version => new EntityPalette1204(),
                 >= MC_1_20_Version => new EntityPalette120(),
                 MC_1_19_4_Version => new EntityPalette1194(),
@@ -187,6 +190,7 @@ namespace MinecraftClient.Protocol.Handlers
                 // Item palette
                 > MC_1_20_4_Version when handler.GetInventoryEnabled() =>
                     throw new NotImplementedException(Translations.exception_palette_item),
+		    >= MC_1_21_4_Version => new ItemPalette1204(),
                 >= MC_1_20_4_Version => new ItemPalette1204(),
                 >= MC_1_20_Version => new ItemPalette120(),
                 MC_1_19_4_Version => new ItemPalette1194(),
@@ -2448,7 +2452,7 @@ namespace MinecraftClient.Protocol.Handlers
                         // Also make a palette for field? Will be a lot of work
                         var healthField = protocolVersion switch
                         {
-                            > MC_1_20_4_Version => throw new NotImplementedException(Translations
+                            > MC_1_21_4_Version => throw new NotImplementedException(Translations
                                 .exception_palette_healthfield),
                             // 1.17 and above
                             >= MC_1_17_Version => 9,
