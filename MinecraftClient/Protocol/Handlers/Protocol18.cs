@@ -492,7 +492,7 @@ namespace MinecraftClient.Protocol.Handlers
 
                 SentrySdk.CaptureException(exception);
 
-                throw exception;
+                // throw exception;
             }
 
             return true;
